@@ -19,7 +19,7 @@ void update() {
 }
 
 void draw(Graphics g) {
-	g.fillRect(x, y , width, height);
+	
 }
 
 

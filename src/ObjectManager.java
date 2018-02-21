@@ -6,9 +6,10 @@ public class ObjectManager {
 	RocketShip rocket;
 	Long enemyTimer = (long) 0;
 	int enemySpawnTime = 1000;
-
+int score = 0;
 	public ObjectManager(RocketShip rockets) {
 		rocket = rockets;
+		enemyTimer = (Long) System.currentTimeMillis();
 	}
 
 	void update() {
@@ -22,7 +23,7 @@ public class ObjectManager {
 			alien.get(i).update();
 
 		}
-
+manageEnemies();
 	}
 
 	void draw(Graphics g) {
@@ -35,7 +36,7 @@ public class ObjectManager {
 			alien.get(i1).draw(g);
 
 		}
-
+		System.out.println(alien.size());
 	}
 
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
@@ -71,4 +72,21 @@ public class ObjectManager {
 
 	}
 
+	void checkCollison() {
+		for(Alien a : alien){
+
+	       if(rocket.collisionBox.intersects(a.collisionBox)){
+
+	                rocket.isAlive = false;
+score++;
+	        }
+
+	}
+	}
+	
+	int getScore(){
+		return score;
+		
+	}
+	
 }

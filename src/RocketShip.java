@@ -13,6 +13,7 @@ public boolean right;
 		
 	}
 		void update() {
+			super.update();
 if(up) {
 	this.y = this.y +speed;
 }

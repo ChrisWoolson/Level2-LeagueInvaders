@@ -25,8 +25,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	RocketShip rocket = new RocketShip(250, 700, 50, 50);
 
 	ObjectManager manager = new ObjectManager(rocket);
-	
-	
+
 	public GamePanel() {
 		time = new Timer(1000 / 120, this);
 		titleFont = new Font("Arial", Font.PLAIN, 40);
@@ -86,14 +85,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState++;
-			
+
 			if (currentState == END_STATE) {
-				
-			rocket = new RocketShip(250, 700, 50, 50);
-			rocket.isAlive= true;
-		}
+				currentState = MENU_STATE;
+				rocket = new RocketShip(250, 700, 50, 50);
+				rocket.isAlive = true;
+			}
 		}
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;
@@ -145,14 +145,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			rocket.right = false;
 		}
 
-		
-		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			manager.addProjectile(new Projectile(rocket.x + 25, rocket.y, 10, 10));
 		}
-		
-		
-		
-		
+
 	}
 
 	void updateMenuState() {
@@ -163,14 +159,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.update();
 		manager.checkCollison();
 		manager.purgeObjects();
-		
-		if(rocket.isAlive == false) {
-	currentState = END_STATE;
+		System.out.println("Rocket is alive: " + rocket.isAlive);
+		if (rocket.isAlive == false) {
+			currentState = END_STATE;
+
 		}
+
 	}
 
 	void updateEndState() {
 
+		manager.alien.clear();
+		manager.projectiles.clear();
+		
 	}
 
 	void drawMenuState(Graphics g) {
